@@ -1,0 +1,39 @@
+*****************************************************************************************************************************
+					LAB0 - Additional Questions - Solutions		
+******************************************************************************************************************************
+Q1) The memory layout gleaned from the various subproblems has been provided below.
+
+
+lowest address        etext	  edata			   end			      limit	   			highest address
+0x00000000	   0x00019257	0x0001e540		0x0002427		    0x00ffdffc		               base=0x00ffeff8
+ ________________________________________________________________________________________________________________________________
+ |                    |	            |			|			         |	     		 |     		|
+ |                    |  	    |			|				 |               s - t - a - c - k	|
+ |       text         |	   data     |	    bss		|  	    free space		 |	                 |              |							
+ |   		      |		    |			|               		 |	Proc [main]      |  stack frame |
+ |____________________|_____________|___________________|________________________________|_______________________|______________|
+
+ 
+Q2) The difference is 8 bytes. The following figure shows the values of the top of the stack before and after calling the printtos() function.
+    The contents between the two values are shown below.
+
+		 _______________
+		|		|<--Before calling printtos(): 0x00ffeff4
+		|   		|
+		|    OLD ebp	|
+		|		|
+		|_______________|
+		|		|
+		|		|
+		|  RETURN ADDR	|
+		|		|
+		|_______________|<--After calling printtos(): 0x00ffefec
+		
+
+Q3) An experiment conducted by declaring sample local variables in the printtos() function shows that the local variables defined in it are not listed.
+    However, upon disabling the compiler optimization, it was found that the local variables can be found after the top of the stack. Thus, it has been
+    concluded that the reason for the missing local variables is compiler optimization.
+
+    Popular opinion from research on the web is that the compiler optimization is a nuanced topic and the compiler may or may not decide to allocate the 
+    local variables in the stack or outside. A variety of factors such as type, name, size, order of declaration and usage frequency, influence this 
+    decision by the compiler. Also this varies for different combinations of compiler and underlying architecture.	
